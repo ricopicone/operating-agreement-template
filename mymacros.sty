@@ -1,0 +1,35 @@
+%%%%%%%% my macros
+
+%%% Footnotes (allows for multiple footnotes with hyperref)
+\let\oldFootnote\footnote
+\newcommand\nextToken\relax
+\renewcommand\footnote[1]{%
+    \oldFootnote{#1}\futurelet\nextToken\isFootnote}
+\newcommand\isFootnote{%
+    \ifx\footnote\nextToken\textsuperscript{,}\fi}
+
+%%% Description environment appearance
+\newcommand\mydescriptionlabel[1]{\hspace{\labelsep}\sffamily\fontseries{sbc}\selectfont\upshape #1}
+\newenvironment{mydescription}{%
+   \let\descriptionlabel\mydescriptionlabel
+   \description
+}{%
+   \enddescription
+}
+
+%%% Capitalize
+\makeatletter
+\def\upcase{\expandafter\makeupcase}
+\def\makeupcase#1{\uppercase{#1}}
+\makeatother
+
+%%% Signature
+%\usepackage{showframe}
+\newcommand*{\SignatureAndDate}[1]{%
+    \noindent\makebox[4in]{\hrulefill} \hfill\makebox[2.0in]{\hrulefill}\newline%
+    \noindent\makebox[4in][l]{#1}      \hfill\makebox[2.0in][l]{Date}%
+}%
+
+%%% Miscellaneous
+\newcommand{\defref}[1]{\hyperref[#1]{Definition~\ref*{#1}}}
+\newcommand\nobreakhyph{\mbox{-}}
